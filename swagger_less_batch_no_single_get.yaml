@@ -1,0 +1,2339 @@
+swagger: "2.0"
+info:
+  description: "This is the api docs for Reference Data Design"
+  version: "1.0.0"
+  title: "Reference Data Design PROD"
+  termsOfService: ""
+host: "tbd"
+basePath: "/v1"
+tags:
+- name: "campaign"
+  description: "Create and update Campaigns"
+- name: "platform_types"
+  description: "Create and update Platform types"
+- name: "sale_actions"
+  description: "Create and update Sales Attribution Actions"
+- name: "consumption_actions"
+  description: "Create and update Consumption Attribution Actions"
+- name: "rule"
+  description: "Create and update Rules"
+- name: "channels"
+  description: "Create and update Channels"
+- name: "hint_codes"
+  description: "Create and update Hint Codes and Segments"
+- name: "programmes"
+  description: "Create and update Programmes"
+- name: "regex_searches"
+  description: "Create and update Regex Searches"
+schemes:
+- "https"
+- "http"
+paths:
+  /campaign:
+    post:
+      tags:
+      - "campaign"
+      summary: "Add a new campaign"
+      description: ""
+      operationId: "addCampaign"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The campaign which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Campaign"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaign"
+        "405":
+          description: "Invalid input or campaign already exists"
+  /campaigns:
+    get:
+      tags:
+      - "campaign"
+      summary: "Gets all campaigns"
+      description: ""
+      operationId: "getCampaigns"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaigns"
+  /campaign/{id}:
+    get:
+      tags:
+      - "campaign"
+      summary: "Get a campaign"
+      description: ""
+      operationId: "getCampaign"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of campaign that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaign"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign not found"
+        "405":
+          description: "Invalid input"
+    patch:
+      tags:
+      - "campaign"
+      summary: "Updates a campaign"
+      description: ""
+      operationId: "updateCampaign"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of campaign that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Campaign that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Campaign"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "campaign"
+      summary: "Delete campaign by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteCampaign"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the campaign that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign not found"
+  /campaign/name:
+    post:
+      tags:
+      - "campaign"
+      summary: "Add a new Campaign Name"
+      description: ""
+      operationId: "addCampaignName"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The campaign Name which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Campaign_Name"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaign_Name"
+        "405":
+          description: "Invalid input or Campaign Name already exists"
+  /campaign/names:
+    get:
+      tags:
+      - "campaign"
+      summary: "Gets all Campaign Names"
+      description: ""
+      operationId: "getCampaignNames"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaign_Names"
+  /campaign/name/{id}:
+    get:
+      tags:
+      - "campaign"
+      summary: "Get a Campaign Name"
+      description: ""
+      operationId: "getCampaignName"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of Campaign Name that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+        minimum: 1.0
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaign_Name"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign Name not found"
+        "405":
+          description: "Invalid input"
+    patch:
+      tags:
+      - "campaign"
+      summary: "Updates a campaign Name"
+      description: ""
+      operationId: "updateCampaignName"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of campaign_name that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Campaign Name that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Campaign_Name"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign Name not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "campaign"
+      summary: "Delete Campaign Name by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteCampaignName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Campaign Name that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign Name not found"
+  /campaign/type:
+    post:
+      tags:
+      - "campaign"
+      summary: "Add a new Campaign Type"
+      description: ""
+      operationId: "addCampaign_type"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The campaign type which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Campaign_Type"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaign_Type"
+        "405":
+          description: "Invalid input or Campaign Type already exists"
+  /campaign/types:
+    get:
+      tags:
+      - "campaign"
+      summary: "Gets all Campaign Types"
+      description: ""
+      operationId: "getCampaign_Types"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Campaign_Types"
+  /campaign/type/{id}:
+    patch:
+      tags:
+      - "campaign"
+      summary: "Updates a campaign_type"
+      description: ""
+      operationId: "updateCampaign_type"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of campaign_type that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Campaign_type that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Campaign_Type"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign Type not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "campaign"
+      summary: "Delete Campaign Type by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteCampaign_type"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Campaign Type that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Campaign Type not found"
+  /platform_type:
+    post:
+      tags:
+      - "platform_types"
+      summary: "Add a new platform_type"
+      description: ""
+      operationId: "addPlatformType"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The platform_type which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Platform_Type"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Platform_Type"
+        "405":
+          description: "Invalid input or platform_type already exists"
+  /platform_types:
+    get:
+      tags:
+      - "platform_types"
+      summary: "Gets all platform types"
+      description: ""
+      operationId: "getPlatformTypes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Platform_Types"
+  /platform_type/{id}:
+    patch:
+      tags:
+      - "platform_types"
+      summary: "Updates a platform_type"
+      description: ""
+      operationId: "updatePlatformType"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of platform_type that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "platform_type that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Platform_Type"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "platform_type not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "platform_types"
+      summary: "Delete platform_type by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deletePlatformType"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the platform_type that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Platform Type not found"
+  /rule/type:
+    post:
+      tags:
+      - "rule"
+      summary: "Add a new rule_type"
+      description: ""
+      operationId: "addRuleType"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The rule_type which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Rule_Type"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Rule_Type"
+        "405":
+          description: "Invalid input or rule_type already exists"
+  /rule/types:
+    get:
+      tags:
+      - "rule"
+      summary: "Gets all platform types"
+      description: ""
+      operationId: "getRuleTypes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Rule_Types"
+  /rule/type/{id}:
+    patch:
+      tags:
+      - "rule"
+      summary: "Updates a rule_type"
+      description: ""
+      operationId: "updateRuleType"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of rule_type that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "rule_type that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Rule_Type"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "rule_type not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "rule"
+      summary: "Delete rule_type by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteRuleType"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the rule_type that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Platform Type not found"
+  /rule:
+    post:
+      tags:
+      - "rule"
+      summary: "Add a new Rule"
+      description: ""
+      operationId: "addRule"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The rule which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Rule"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Create_Rule"
+        "405":
+          description: "Invalid input or rule already exists"
+  /rules:
+    get:
+      tags:
+      - "rule"
+      summary: "Gets all rules"
+      description: ""
+      operationId: "getRules"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Rules"
+  /rule/{id}:
+    patch:
+      tags:
+      - "rule"
+      summary: "Updates a rule"
+      description: ""
+      operationId: "updateRule"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of rule that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Rule that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Rule"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Rule not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "rule"
+      summary: "Delete rule by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteRule"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Rule that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Rule not found"
+  /rule/config:
+    post:
+      tags:
+      - "rule"
+      summary: "Add a new Rule Configuration"
+      description: ""
+      operationId: "addRuleConfig"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The rule configuration which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Rule_Config"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Create_Rule_Config"
+        "405":
+          description: "Invalid input or Rule Configuration already exists"
+  /rule/configs:
+    get:
+      tags:
+      - "rule"
+      summary: "Gets all rules and their associated configuration"
+      description: ""
+      operationId: "getRuleConfigs"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Rule_Configs"
+  /rule/config/{id}:
+    patch:
+      tags:
+      - "rule"
+      summary: "Updates a rule and its associated configuration"
+      description: ""
+      operationId: "updateRuleConfig"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of rule and its associated configuration that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Rule and its associated configuration that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Rule_Config"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Rule config not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "rule"
+      summary: "Delete rule and its associated configuration by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteRuleConfig"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Rule and its associated configuration that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Rule config not found"
+  /consumption_action:
+    post:
+      tags:
+      - "consumption_actions"
+      summary: "Add a new Consumption Action"
+      description: ""
+      operationId: "addConsumptionAction"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The Consumption Action which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Consumption_Action"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Consumption_Action"
+        "405":
+          description: "Invalid input or Consumption action already exists"
+  /consumption_actions:
+    get:
+      tags:
+      - "consumption_actions"
+      summary: "Gets all Consumption Actions"
+      description: ""
+      operationId: "getConsumptionActions"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Consumption_Actions"
+  /consumption_action/{id}:
+    patch:
+      tags:
+      - "consumption_actions"
+      summary: "Updates a Consumption Action"
+      description: ""
+      operationId: "updateConsumptionAction"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of Consumption Action that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Consumption Action that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Consumption_Action"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Consumption Action not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "consumption_actions"
+      summary: "Delete Consumption Action by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteConsumptionAction"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Consumption Action that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Consumption Action not found"
+  /sale_action:
+    post:
+      tags:
+      - "sale_actions"
+      summary: "Add a new Sale Action"
+      description: ""
+      operationId: "addSaleAction"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The Sale Action which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Sale_Action"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Sale_Action"
+        "405":
+          description: "Invalid input or sale action already exists"
+  /sale_actions:
+    get:
+      tags:
+      - "sale_actions"
+      summary: "Gets all Sale Actions"
+      description: ""
+      operationId: "getSaleActions"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Sale_Actions"
+  /sale_action/{id}:
+    patch:
+      tags:
+      - "sale_actions"
+      summary: "Updates a Sale Action"
+      description: ""
+      operationId: "updatesaleAction"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of Sale Action that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Sale Action that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Sale_Action"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "sale Action not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "sale_actions"
+      summary: "Delete Sale Action by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteSaleAction"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Sale Action that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Sale Action not found"
+  /channel:
+    post:
+      tags:
+      - "channels"
+      summary: "Add a new channel"
+      description: ""
+      operationId: "addChannel"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The channel which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Channel"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Channel"
+        "405":
+          description: "Invalid input or channel already exists"
+  /channels:
+    get:
+      tags:
+      - "channels"
+      summary: "Gets all channels"
+      description: ""
+      operationId: "getChannels"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Channels"
+  /channel/{id}:
+    patch:
+      tags:
+      - "channels"
+      summary: "Updates a Channel"
+      description: ""
+      operationId: "updateChannel"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of Channel that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Channel that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Channel"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Channel not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "channels"
+      summary: "Delete Channel by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteChannel"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Channel that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Channel not found"
+  /hint_code:
+    post:
+      tags:
+      - "hint_codes"
+      summary: "Add a new Hint Code"
+      description: ""
+      operationId: "addHintCode"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The hint code which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Hint_Code"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Hint_Code"
+        "405":
+          description: "Invalid input or hint_code already exists"
+  /hint_codes:
+    get:
+      tags:
+      - "hint_codes"
+      summary: "Gets all Hint Codes"
+      description: ""
+      operationId: "getHintCodes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Hint_Codes"
+  /hint_code/{id}:
+    patch:
+      tags:
+      - "hint_codes"
+      summary: "Updates a Hint Code"
+      description: ""
+      operationId: "updateHintCode"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of hint code that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Hint Code that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Hint_Code"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Hint Code not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "hint_codes"
+      summary: "Delete hint code by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteHintCode"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Hint Code that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Hint Code not found"
+  /hint_codes/campaign/{campaign_id}:
+    get:
+      tags:
+      - "hint_codes"
+      summary: "Gets all Hint Codes by campaign id"
+      description: ""
+      operationId: "getHintCodesByCampaign"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "campaign_id"
+        in: "path"
+        description: "ID of a Campaign whos Hint Codes that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Hint_Codes"
+  /programme:
+    post:
+      tags:
+      - "programmes"
+      summary: "Add a new Programme"
+      description: ""
+      operationId: "addProgramme"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The Programme which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Programme"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Programme"
+        "405":
+          description: "Invalid input or Programme already exists"
+  /programmes:
+    get:
+      tags:
+      - "programmes"
+      summary: "Gets all Programmes"
+      description: ""
+      operationId: "getProgrammes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Programmes"
+  /programme/{id}:
+    patch:
+      tags:
+      - "programmes"
+      summary: "Updates a Programme"
+      description: ""
+      operationId: "updateProgramme"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of Programme that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Programme that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Programme"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Programme not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "programmes"
+      summary: "Delete hint code by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteProgramme"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Programme that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Programme not found"
+  /programme/campaign/{campaign_id}:
+    get:
+      tags:
+      - "programmes"
+      summary: "Gets all Programmes by campaign id"
+      description: ""
+      operationId: "getProgrammesByCampaign"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "campaign_id"
+        in: "path"
+        description: "ID of a Campaign whos Programmes that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Programmes"
+  /regex_search:
+    post:
+      tags:
+      - "regex_searches"
+      summary: "Add a new Regex Search"
+      description: ""
+      operationId: "addRegexSearch"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The Regex Search which needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Regex_Search"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Regex_Search"
+        "405":
+          description: "Invalid input or Regex Search already exists"
+  /regex_searches:
+    get:
+      tags:
+      - "regex_searches"
+      summary: "Gets all Regex Searches"
+      description: ""
+      operationId: "getRegexSearches"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Regex_Searches"
+  /regex_search/{id}:
+    patch:
+      tags:
+      - "regex_searches"
+      summary: "Updates a Regex Search"
+      description: ""
+      operationId: "updateRegexSearch"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of Regex Search that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Regex Search that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Create_Regex_Search"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Regex Search not found"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "regex_searches"
+      summary: "Delete hint code by ID"
+      description: "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"
+      operationId: "deleteRegexSearch"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the Regex Search that needs to be deleted"
+        required: true
+        type: "integer"
+        minimum: 1.0
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Regex Search not found"
+  /regex_search/campaign/{campaign_id}:
+    get:
+      tags:
+      - "regex_searches"
+      summary: "Gets all Regex Search by campaign id"
+      description: ""
+      operationId: "getRegexSearchByCampaign"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "campaign_id"
+        in: "path"
+        description: "ID of a Campaign whos Regex Search that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Regex_Searches"
+definitions:
+  Campaign_Type:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Campaign_Type"
+  Create_Campaign_Type:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+    xml:
+      name: "Create_Campaign_Type"
+  Create_Campaign_Types:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Campaign_Type"
+    xml:
+      name: "Create_Campaign_Types"
+  Campaign_Types:
+    type: "array"
+    items:
+        $ref: "#/definitions/Campaign_Type"
+    xml:
+      name: "Campaign_Types"
+  Platform_Type:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Platform_Type"
+  Create_Platform_Type:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+    xml:
+      name: "Create_Platform_Type"
+  Create_Platform_Types:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Platform_Type"
+    xml:
+      name: "Create_Platform_Types"
+  Platform_Types:
+    type: "array"
+    items:
+        $ref: "#/definitions/Platform_Type"
+    xml:
+      name: "Platform_Types"
+  Campaign:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      campaign_detail:
+          type: "array"
+          items:
+            $ref: "#/definitions/Campaign_Bridge"
+      platform_type:
+        $ref: "#/definitions/Platform_Type"
+      campaign_type:
+        $ref: "#/definitions/Campaign_Type"
+      consumption_attribution_detail:
+        $ref: "#/definitions/Consumption_Attribution"
+      sales_attribution_detail:
+        $ref: "#/definitions/Sales_Attribution"
+      is_metadata_completed:
+        type: "boolean"
+        example: false
+      last_measurement_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+      measure_on_next_run:
+        type: "boolean"
+        example: false
+      campaign_start_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      campaign_end_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-12-01"
+    xml:
+      name: "Campaign"
+  Create_Campaign:
+    type: "object"
+    required:
+    - "platform_type_id"
+    - "campaign_type_id"
+    - "campaign_start_date"
+    properties:
+      platform_type_id:
+        $ref: "#/definitions/Platform_Type/properties/id"
+      campaign_type_id:
+        $ref: "#/definitions/Campaign_Type/properties/id"
+      campaign_names:
+        type: "array"
+        items:
+          $ref: "#/definitions/Create_Campaign_Bridge"
+      consumption_attributions:
+        type: "array"
+        items:
+          $ref: "#/definitions/Create_Consumption_Attribution"
+      sales_attributions:
+        type: "array"
+        items:
+          $ref: "#/definitions/Create_Sales_Attribution"
+      is_metadata_completed:
+        type: "boolean"
+        example: false
+      last_measurement_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+      measure_on_next_run:
+        type: "boolean"
+        example: false
+      campaign_start_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      campaign_end_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-12-01"
+    xml:
+      name: "Create_Campaign"
+  Campaigns:
+    type: "array"
+    items:
+        $ref: "#/definitions/Campaign"
+    xml:
+      name: "Campaigns"
+  Create_Campaigns:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Campaign"
+    xml:
+      name: "Create_Campaigns"
+  Campaign_Name:
+    type: "object"
+    required:
+    - "name"
+    - "owner_id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Harry Potter"
+      owner_id:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Campaign_Name"
+  Create_Campaign_Name:
+    type: "object"
+    required:
+    - "name"
+    - "owner_id"
+    properties:
+      name:
+        type: "string"
+        example: "Harry Potter"
+      owner_id:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Create_Campaign_Name"
+  Create_Campaign_Names:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Campaign_Name"
+    xml:
+      name: "Create_Campaign_Names"
+  Campaign_Names:
+    type: "array"
+    items:
+        $ref: "#/definitions/Campaign_Name"
+    xml:
+      name: "Campaign_Names"
+  Rule_Type:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Rule_Type"
+  Create_Rule_Type:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+    xml:
+      name: "Rule_Type"
+  Create_Rule_Types:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Rule_Type"
+    xml:
+      name: "Create_Rule_Types"
+  Rule_Types:
+    type: "array"
+    items:
+        $ref: "#/definitions/Rule_Type"
+    xml:
+      name: "Rule_Types"
+  Rule:
+    type: "object"
+    required:
+    - "rule_type_id"
+    - "rule_id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      rule_type:
+        $ref: "#/definitions/Rule_Type"
+      rule_id:
+        type: "string"
+        example: "CR1"
+      rule_purpose:
+        type: "string"
+        example: "test"
+      description:
+        type: "string"
+        example: "this measures"
+    xml:
+      name: "Rule"
+  Create_Rule:
+    type: "object"
+    required:
+    - "rule_type_id"
+    - "rule_id"
+    properties:
+      rule_type_id:
+        $ref: "#/definitions/Rule_Type/properties/id"
+      rule_id:
+        type: "string"
+        example: "CR1"
+      rule_purpose:
+        type: "string"
+        example: "test"
+      description:
+        type: "string"
+        example: "this measures"
+    xml:
+      name: "Rule"
+  Rules:
+    type: "array"
+    items:
+        $ref: "#/definitions/Rule"
+    xml:
+      name: "Rules"
+  Create_Rules:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Rules"
+    xml:
+      name: "Create_Rules"
+  Create_Rule_Config:
+    type: "object"
+    required:
+    - "rule_type_id"
+    - "campaign_type_id"
+    - "platform_type_id"
+    - "sub_id"
+    - "rule_definition"
+    properties:
+      rule_id:
+        $ref: "#/definitions/Rule/properties/id"
+      campaign_type_id:
+        $ref: "#/definitions/Campaign_Type/properties/id"
+      platform_type_id:
+        $ref: "#/definitions/Platform_Type/properties/id"
+      consumption_action_id:
+        $ref: "#/definitions/Consumption_Action/properties/id"
+      sub_id:
+        type: "string"
+        example: "CR1"
+      rule_definition:
+        type: "string"
+        example: "Selects certain campaigns"
+      database_value:
+        type: "integer"
+        format: "int64"
+      value:
+        type: "integer"
+        format: "int64"
+      value_from:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+    xml:
+      name: "RuleConfig"
+  Rule_Config:
+    type: "object"
+    required:
+    - "rule"
+    - "campaign_type"
+    - "platform_type"
+    - "sub_id"
+    - "rule_definition"
+    - "database_value"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      rule:
+        $ref: "#/definitions/Rule"
+      campaign_type:
+        $ref: "#/definitions/Campaign_Type"
+      platform_type:
+        $ref: "#/definitions/Platform_Type"
+      consumption_action:
+        $ref: "#/definitions/Consumption_Action"
+      sub_id:
+        type: "string"
+        example: "CR1"
+      rule_definition:
+        type: "string"
+        example: "Selects certain campaigns"
+      database_value:
+        type: "integer"
+        format: "int64"
+      value:
+        type: "integer"
+        format: "int64"
+      value_from:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+    xml:
+      name: "RuleConfig"
+  Rule_Configs:
+    type: "array"
+    items:
+        $ref: "#/definitions/Rule_Config"
+    xml:
+      name: "Rule_Configs"
+  Create_Rule_Configs:
+    type: "array"
+    items:
+        $ref: "#/definitions/Rule_Config"
+    xml:
+      name: "Create_Rule_Configs"
+  Consumption_Action:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Consumption_Action"
+  Create_Consumption_Action:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+    xml:
+      name: "Create_Consumption_Action"
+  Create_Consumption_Actions:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Consumption_Action"
+    xml:
+      name: "Create_Consumption_Actions"
+  Consumption_Actions:
+    type: "array"
+    items:
+        $ref: "#/definitions/Consumption_Action"
+    xml:
+      name: "Consumption_Actions"
+  Sale_Action:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Sale_Action"
+  Create_Sale_Action:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+    xml:
+      name: "Create_Sale_Action"
+  Create_Sale_Actions:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Sale_Action"
+    xml:
+      name: "Create_Sale_Actions"
+  Sale_Actions:
+    type: "array"
+    items:
+        $ref: "#/definitions/Sale_Action"
+    xml:
+      name: "Sale_Actions"
+  Channel:
+    type: "object"
+    required:
+    - "full_channel_name"
+    - "is_pop_up"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      full_channel_name:
+        type: "string"
+        example: "Cinema Family"
+      is_pop_up_channel:
+        type: "boolean"
+        example: false
+      pop_up_launch_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      channel_genre:
+        type: "string"
+        example: "Thriller"
+    xml:
+      name: "Channel"
+  Create_Channel:
+    type: "object"
+    required:
+    - "full_channel_name"
+    - "is_pop_up"
+    properties:
+      full_channel_name:
+        type: "string"
+        example: "Cinema Family"
+      is_pop_up_channel:
+        type: "boolean"
+        example: false
+      pop_up_launch_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      channel_genre:
+        type: "string"
+        example: "Thriller"
+    xml:
+      name: "Create_Channel"
+  Create_Channels:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Channel"
+    xml:
+      name: "Create_Channels"
+  Channels:
+    type: "array"
+    items:
+        $ref: "#/definitions/Channel"
+    xml:
+      name: "Channels"
+  Create_Campaign_Bridge:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "campaign_name_id"
+    - "is_control"
+    - "name"
+    properties:
+      campaign_name:
+        $ref: "#/definitions/Create_Campaign_Name"
+      is_control:
+        type: "boolean"
+        example: false
+      name:
+        type: "string"
+        example: "test_campaign"
+    xml:
+      name: "Create_Campaign_Bridge"
+  Campaign_Bridge:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "campaign_name_id"
+    - "is_control"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      campaign_name_id:
+        $ref: "#/definitions/Campaign_Name"
+      is_control:
+        type: "boolean"
+        example: false
+      name:
+        type: "string"
+        example: "test_campaign"
+    xml:
+      name: "Campaign_Bridge"
+  Consumption_Attribution:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "is_primary"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      consumption_actions:
+        $ref: "#/definitions/Consumption_Action"
+      channel:
+        $ref: "#/definitions/Channel"
+      is_primary:
+        type: "boolean"
+        example: false
+      name:
+        type: "string"
+        example: "Consumption_Attribution"
+    xml:
+      name: "Consumption_Attribution"
+  Create_Consumption_Attribution:
+    type: "object"
+    required:
+    - "is_primary"
+    - "name"
+    properties:
+      consumption_actions:
+        $ref: "#/definitions/Create_Consumption_Action"
+      channel:
+        $ref: "#/definitions/Create_Channel"
+      is_primary:
+        type: "boolean"
+        example: false
+      name:
+        type: "string"
+        example: "primary_consumption_attribution_action"
+    xml:
+      name: "Create_Consumption_Attribution"
+  Sales_Attribution:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "sale_actions_id"
+    - "is_primary"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      sale_actions_id:
+        $ref: "#/definitions/Consumption_Action"
+      is_primary:
+        type: "boolean"
+        example: false
+      name:
+        type: "string"
+        example: "primary_sales_attribution_action"
+    xml:
+      name: "Sales_Attribution"
+  Create_Sales_Attribution:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      sale_actions:
+        $ref: "#/definitions/Create_Sale_Action"
+      is_primary:
+        type: "boolean"
+        example: false
+      name:
+        type: "string"
+        example: "primary_sales_attribution_action"
+    xml:
+      name: "Sales_Attribution"
+  Programme:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "programme_name"
+    - "programme_uuid"
+    - "broadcast_start_ts"
+    - "broadcast_end_ts"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      programme_name:
+        type: "string"
+        example: "Classics"
+      programme_uuid:
+        type: "string"
+        example: "a32142aa-949d-41de-b4d8-6f45dca85d73"
+      is_primary_consumption:
+        type: "boolean"
+        example: false
+      is_secondary_consumption:
+        type: "boolean"
+        example: false
+      broadcast_start_ts:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      broadcast_end_ts:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+    xml:
+      name: "Programme"
+  Create_Programme:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "programme_name"
+    - "programme_uuid"
+    - "broadcast_start_ts"
+    - "broadcast_end_ts"
+    properties:
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      programme_name:
+        type: "string"
+        example: "Classics"
+      programme_uuid:
+        type: "string"
+        example: "a32142aa-949d-41de-b4d8-6f45dca85d73"
+      is_primary_consumption:
+        type: "boolean"
+        example: false
+      is_secondary_consumption:
+        type: "boolean"
+        example: false
+      broadcast_start_ts:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      broadcast_end_ts:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+    xml:
+      name: "Create_Programme"
+  Programmes:
+    type: "array"
+    items:
+        $ref: "#/definitions/Programme"
+    xml:
+      name: "Programmes"
+  Create_Programmes:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Programme"
+    xml:
+      name: "Create_Programmes"
+  Regex_Search:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "regex"
+    - "start_date"
+    - "end_date"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      regex:
+        type: "string"
+        example: "batman"
+      start_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      end_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+    xml:
+      name: "Regex_Search"
+  Create_Regex_Search:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "regex"
+    - "start_date"
+    - "end_date"
+    properties:
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      regex:
+        type: "string"
+        example: "batman"
+      start_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+      end_date:
+        type: "string"
+        format: date
+        pattern: "YYYY-MM-DD"
+        example: "2022-01-01"
+    xml:
+      name: "Create_Regex_Search"
+  Regex_Searches:
+    type: "array"
+    items:
+        $ref: "#/definitions/Regex_Search"
+    xml:
+      name: "Regex_Searches"
+  Create_Regex_Searches:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Regex_Search"
+    xml:
+      name: "Create_Regex_Searches"
+  Hint_Code:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "name"
+    - "hint_code"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      name:
+        type: "string"
+        example: "test campaign 3"
+      hint_code:
+        type: "integer"
+        format: "int64"
+      segment:
+        type: "string"
+        example: "N/A"
+    xml:
+      name: "Hint_Code"
+  Create_Hint_Code:
+    type: "object"
+    required:
+    - "campaign_id"
+    - "name"
+    - "hint_code"
+    properties:
+      campaign_id:
+        $ref: "#/definitions/Campaign/properties/id"
+      name:
+        type: "string"
+        example: "test campaign 3"
+      hint_code:
+        type: "integer"
+        format: "int64"
+      segment:
+        type: "string"
+        example: "N/A"
+    xml:
+      name: "Create_Hint_Code"
+  Hint_Codes:
+    type: "array"
+    items:
+        $ref: "#/definitions/Hint_Code"
+    xml:
+      name: "Hint_Codes"
+  Create_Hint_Codes:
+    type: "array"
+    items:
+        $ref: "#/definitions/Create_Hint_Code"
+    xml:
+      name: "Create_Hint_Codes"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
